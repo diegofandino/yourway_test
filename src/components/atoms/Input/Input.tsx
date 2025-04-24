@@ -7,10 +7,11 @@ type InputProps = {
   value: string;
   onChangeEvent: (value: string) => void;
   onKeyDownEvent?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyUpEvent?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   className?: string;
 };
 
-const Input = ({ value, onChangeEvent, onKeyDownEvent, className }: InputProps) => {
+const Input = ({ value, onChangeEvent, onKeyDownEvent, onKeyUpEvent, className }: InputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChangeEvent(e.target.value);
   };
@@ -19,6 +20,7 @@ const Input = ({ value, onChangeEvent, onKeyDownEvent, className }: InputProps) 
     <input
       className={className}
       value={value}
+      onKeyUp={onKeyUpEvent}
       onKeyDown={onKeyDownEvent}
       onChange={handleChange}
       type="text"

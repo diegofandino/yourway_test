@@ -5,4 +5,5 @@ export const StringProjects: StringProject  = {
 	STOP_TEXT: 'Stop',
 	RESTART_TEXT: 'Restart',
 	MAIN_TITLE: 'Typing Comparition, enjoy it!',
+	RESULT_SCORE: 'Your score is: ',
 }

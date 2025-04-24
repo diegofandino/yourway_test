@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getWordStatusArray } from '../../../utils/getWordsColors/getWordsColors';
+import { colorStrings } from '../../../constants/color-constants-strings';
 
 type TextComparitionProps = {
 	text: string;
 	inputString: string;
+	setCorrectWordsNumber: (value: number) => void;
 };
 
-const TextComparition = ({ text, inputString }: TextComparitionProps) => {
+const TextComparition = ({ text, inputString, setCorrectWordsNumber }: TextComparitionProps) => {
 
 	const feedbackToUser = getWordStatusArray(text, inputString );
+
+	useEffect(() => {
+		const correctWords = feedbackToUser.filter((word) => word.color === colorStrings.CORRECT).length;
+		setCorrectWordsNumber(correctWords);
+	}, [feedbackToUser, setCorrectWordsNumber]);
+	
 
   return (
 	<div>

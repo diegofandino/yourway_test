@@ -1,30 +1,31 @@
+import { colorStrings } from "../../constants/color-constants-strings";
+
 type TargetTextArray = {
-	text: string;
-	color: string;
-  };
-  
-  export const getWordStatusArray = (
-	targetText: string,
-	inputText: string
-  ): TargetTextArray[] => {
+  text: string;
+  color: string;
+};
 
-	const wordSplit = targetText.trim().split(" ");
-	const inputSplit = inputText.trim().split(" ");
-	const isTypingLastWord = inputText.length > 0 && !inputText.endsWith(" ");
-  
-	return wordSplit.map((word, index) => {
-	  const inputWord = inputSplit[index];
-	  if (inputWord === undefined) {
-		return { text: word, color: "black" };
-	  }
-	  if (word === inputWord) {
-		return { text: word, color: "correct-color" };
-	  }
-	  if (isTypingLastWord && index === inputSplit.length - 1) {
-		return { text: word, color: "active-color" };
-	  }
+export const getWordStatusArray = (
+  targetText: string,
+  inputText: string
+): TargetTextArray[] => {
+  const wordSplit = targetText.trim().split(" ");
+  const inputSplit = inputText.trim().split(" ").filter(Boolean);
 
-	  return { text: word, color: "black" };
-	});
-  };
-  
+  return wordSplit.map((word, index) => {
+    const inputWord = inputSplit[index];
+
+    if (inputWord === undefined) {
+      return { text: word, color: colorStrings.TRANSPARENT  };
+    }
+
+    if (word === inputWord) {
+      return { text: word, color: colorStrings.CORRECT };
+    }
+    if (word !== inputWord) {
+      return { text: word, color: colorStrings.INCORRECT };
+    }
+
+    return { text: word, color: colorStrings.TRANSPARENT };
+  });
+};
