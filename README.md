@@ -7,6 +7,11 @@
 4. Use .env.template to add environment vars (.env.development), in this case, json-server need a endpoint to work, in package.json you'll find http://localhost:5005 but you can use other, but you need to put also into .env.development
 remember: you need to create in root: .env.development and copy variable(s) from .env.template to .env.development to work correctly.
 
+EXAMPLE:
+1. create .env.development
+into you put this and save the file:
+VITE_URL_BASE=http://localhost:5005
+
 ### Starting using the project
 You will be able to start using typing test, using command "yarn dev" it will run ports 3000 (app) and 5005 (json-server)
 
