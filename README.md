@@ -11,3 +11,8 @@ remember: you need to create in root: .env.development and copy variable(s) from
 You will be able to start using typing test, using command "yarn dev" it will run ports 3000 (app) and 5005 (json-server)
 
 Note: If you want to change a text to make typing comparition, you need to get into "context/TypingContext" and variable: targetText you only need to change the text and it automatically will re-render.
+
+### Using database with json server
+Remember clean all db.json when you want to get new scores.
+
+Enjoy this app!
