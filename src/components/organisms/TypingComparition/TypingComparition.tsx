@@ -5,27 +5,24 @@ import { StringProjects } from '../../../utils/strings-projects/stringProjects'
 import TextComparition from '../../atoms/TextComparition/TextComparition';
 import { TypingContext } from '../../../context/TypingContext';
 import Description from '../../atoms/Description/Description';
-import { useScoreFetchingData } from '../../../hooks/useScoreFetchingData';
 import ScoreTable from '../ScoreTable/ScoreTable';
 
 const {
 	STOP_TEXT,
 	RESTART_TEXT,
-	MAIN_TITLE,
 	RESULT_SCORE,
+	RESULT_SCORE_TABLE,
 } = StringProjects;
 
 const TypingComparition = () => {
 
 	const context = useContext(TypingContext);
-	const { getScores } = useScoreFetchingData();
-
-	const { targetText, userInputText, score, isFinalWord, handleUserInputChange, handleRestartGame, handleKeyDown, handleKeyUp, setCorrectWordsNumber} = context;
+	
+	const { targetText, userInputText, score, isFinalWord, getScores, handleUserInputChange, handleRestartGame, handleKeyDown, handleKeyUp, setCorrectWordsNumber} = context;
 
   return (
 	
 	<section className='flex flex-col gap-8 w-full h-full items-center justify-center'>
-		<h1 className='text-3xl'>{MAIN_TITLE}</h1>
 		<TextComparition setCorrectWordsNumber={setCorrectWordsNumber} text={targetText} inputString={userInputText}  />
 		{!isFinalWord && <Input onKeyUpEvent={handleKeyUp} onKeyDownEvent={handleKeyDown} onChangeEvent={handleUserInputChange} value={userInputText}  className='input-type' /> }
 		<div className='flex justify-center gap-2'>
@@ -39,9 +36,18 @@ const TypingComparition = () => {
 			)
 		}
 		{
-			getScores && getScores.length > 0 && getScores.map((score =>
-				<ScoreTable key={score.id} date={score.date} score={score.score} />
-			))
+			getScores && getScores.length > 0 && (
+				<div className='flex flex-col gap-8'>
+					<h3 className='text-2xl font-bold'>{RESULT_SCORE_TABLE}</h3>
+					<div className='max-h-120 overflow-y-auto flex flex-col gap-8'>
+						{
+							getScores.map((score =>
+							<ScoreTable key={score.id} date={score.date} score={score.score} />
+							))
+						}
+					</div>
+				</div>
+			)
 		}
 	</section>
   )

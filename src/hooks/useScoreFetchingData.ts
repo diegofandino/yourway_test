@@ -5,19 +5,28 @@ export const useScoreFetchingData = () => {
 	
 	const [getScores, setGetScores] = useState<ScoresGet[]>([]);
 
-	const fetchScores = async () => {
+	const getScoresFromDB = async () => {
 		try {
-			const response = await axios.get(`${import.meta.env.VITE_URL_BASE}/scores`);
-			console.log(response);
+			const response = await axios.get(`${import.meta.env.VITE_URL_BASE}/scores?_sort=date&_order=desc`);
 			setGetScores(response.data);
 		} catch (error) {
 			console.error("Error fetching scores:", error);
 		}
 	};
+
+	const addScores	= async (newScore: ScoresGet) => {
+		try {
+			await axios.post(`${import.meta.env.VITE_URL_BASE}/scores`, newScore);
+			setGetScores((prevScores) => [...prevScores, newScore]);
+		} catch (error) {
+			console.error("Error adding score:", error);
+		}
+	};
+
 	React.useEffect(() => {
-		fetchScores();
+		getScoresFromDB();
 	}, []);
 
-	return { getScores };
+	return { getScores, addScores };
 
 }; 

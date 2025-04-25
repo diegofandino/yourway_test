@@ -7,8 +7,6 @@ export const useWPM = (text: string, startTime: number, finalWord: boolean) => {
   React.useEffect(() => {
 
     if(finalWord){
-        console.log('starttime', startTime)
-        console.log('final ', Date.now())
         const timeElapsed = (Date.now() - startTime) / 60000;
         if( timeElapsed <= 0)  return;
         const wordsTyped = text.trim().split(" ").length;

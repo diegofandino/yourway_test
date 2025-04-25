@@ -18,6 +18,7 @@ const Input = ({ value, onChangeEvent, onKeyDownEvent, onKeyUpEvent, className }
 
   return (
     <input
+      data-testid="input"
       className={className}
       value={value}
       onKeyUp={onKeyUpEvent}

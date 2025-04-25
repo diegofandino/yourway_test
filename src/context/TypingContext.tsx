@@ -1,13 +1,17 @@
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { useWPM } from "../hooks/useWPM";
 import { useAccuracy } from "../hooks/useAccuracy";
 import { useScore } from "../hooks/useScore";
+import { useScoreFetchingData } from "../hooks/useScoreFetchingData";
+import { ScoresGet } from "../models/Scores.model";
+import { formatDate } from "../utils/formaterDates/formaterDates";
 
 type TypingContextType = {
   targetText: string;
   userInputText: string;
   isFinalWord: boolean;
   score: number;
+  getScores: ScoresGet[];
   handleUserInputChange: (value: string) => void;
   handleRestartGame: () => void;
   handleKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -24,6 +28,7 @@ const defaultContextValue: TypingContextType = {
   userInputText: "",
   isFinalWord: false,
   score: 0,
+  getScores: [],
   handleRestartGame: () => {},
   handleUserInputChange: () => {},
   handleKeyUp: () => {},
@@ -35,12 +40,13 @@ const TypingContext = createContext<TypingContextType>(defaultContextValue);
 
 const TypingProvider = ({ children }: TypingProviderProps) => {
 
-  const [targetText] = useState("Necesito una expresion un poco mas grande para poder hacer una prueba de velocidad de escritura");
+  const [targetText] = useState("Necesito una expresion");
   const [userInputText, setUserInputText] = useState("");
   const [counterDeletedChars, setCounterDeletedChars] = useState(0);
   const [startTime, setStartTimer] = useState(0);
   const [isFinalWord, setIsFinalWord] = useState(false);
   const [correctWordsNumber, setCorrectWordsNumber] = useState(0);
+  const { getScores, addScores } = useScoreFetchingData();
 
   const words = userInputText.trim().split(" ");
   const targetWords = targetText.trim().split(" ");
@@ -58,7 +64,20 @@ const TypingProvider = ({ children }: TypingProviderProps) => {
     setCounterDeletedChars(0);
     setStartTimer(0);
     setIsFinalWord(false);
+    setCorrectWordsNumber(0);
   };
+
+  useEffect(() => {
+		if(score > 0) {
+		  const newScore = {
+			id: new Date().getTime().toString(),
+			date: formatDate(new Date().toISOString()),
+			score: score,
+		  };
+		  addScores(newScore);
+		}
+	 // eslint-disable-next-line react-hooks/exhaustive-deps
+	 },  [score])
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -78,8 +97,6 @@ const TypingProvider = ({ children }: TypingProviderProps) => {
     if (e.key === " ") {
       e.preventDefault();
    
-      console.log(words.length, targetWords.length)
-
       if(words.length < targetWords.length) {   
         setUserInputText((prev) =>  prev + " ");
         setIsFinalWord(false);
@@ -99,6 +116,7 @@ const TypingProvider = ({ children }: TypingProviderProps) => {
     <TypingContext.Provider
       value={{
         targetText,
+        getScores,
         score,
         isFinalWord,
         userInputText,

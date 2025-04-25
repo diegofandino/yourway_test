@@ -4,7 +4,7 @@ type ButtonProps = {
 	label: string;
 	type: 'button' | 'submit' | 'reset';
 	className?: string;
-   	onClickEvent: () => void;
+   	onClickEvent?: () => void;
 };
 
 const Button = ({ label, type, className, onClickEvent }: ButtonProps) => {

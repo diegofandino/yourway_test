@@ -1,12 +1,12 @@
 import './App.css'
-import TypingComparition from './components/organisms/TypingComparition/TypingComparition'
+import TypingPage from './components/pages/TypingPage/TypingPage'
 import { TypingProvider } from './context/TypingContext'
 
 function App() {
 
   return (
     <TypingProvider>
-      <TypingComparition />
+      <TypingPage />
     </TypingProvider>
   )
 }
