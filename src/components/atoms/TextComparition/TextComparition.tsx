@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
 import { getWordStatusArray } from '../../../utils/getWordsColors/getWordsColors';
 import { colorStrings } from '../../../constants/color-constants-strings';
+import { StringProjects } from '../../../utils/strings-projects/stringProjects';
 
 type TextComparitionProps = {
 	text: string;
 	inputString: string;
 	setCorrectWordsNumber: (value: number) => void;
 };
+
+const {
+	YOUR_PHRASE_IS
+} = StringProjects;
 
 const TextComparition = ({ text, inputString, setCorrectWordsNumber }: TextComparitionProps) => {
 
@@ -20,6 +25,7 @@ const TextComparition = ({ text, inputString, setCorrectWordsNumber }: TextCompa
 
   return (
 	<div>
+		<h3 className='text-xl pb-3'>{YOUR_PHRASE_IS}</h3>
 		{feedbackToUser.map((word, index) => (
 			<span key={index} className={word.color}>
 				{word.text}

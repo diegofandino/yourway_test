@@ -40,7 +40,7 @@ const TypingContext = createContext<TypingContextType>(defaultContextValue);
 
 const TypingProvider = ({ children }: TypingProviderProps) => {
 
-  const [targetText] = useState("Necesito una expresion");
+  const [targetText] = useState("This is a typing test. Try to type this text as fast as you can.");
   const [userInputText, setUserInputText] = useState("");
   const [counterDeletedChars, setCounterDeletedChars] = useState(0);
   const [startTime, setStartTimer] = useState(0);

@@ -17,7 +17,7 @@ export const useScoreFetchingData = () => {
 	const addScores	= async (newScore: ScoresGet) => {
 		try {
 			await axios.post(`${import.meta.env.VITE_URL_BASE}/scores`, newScore);
-			setGetScores((prevScores) => [...prevScores, newScore]);
+			setGetScores((prevScores) => [newScore, ...prevScores ]);
 		} catch (error) {
 			console.error("Error adding score:", error);
 		}
