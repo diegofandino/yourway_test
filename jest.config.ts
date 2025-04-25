@@ -6,11 +6,11 @@ export default {
 	},
 	globals: {
 	  "ts-jest": {
-		tsconfig: "tsconfig.json" // Aquí le decimos que use tu tsconfig principal
+		tsconfig: "tsconfig.json" 
 	  }
 	},
 	moduleNameMapper: {
 	  "\\.(css|less|sass|scss)$": "identity-obj-proxy",
 	},
-	setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // o setupTests.ts, según el archivo que tengas
+	setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], 
   };

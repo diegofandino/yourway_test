@@ -10,6 +10,8 @@ type TypingContextType = {
   targetText: string;
   userInputText: string;
   isFinalWord: boolean;
+  wpm: number;
+  accuracy: number;
   score: number;
   getScores: ScoresGet[];
   handleUserInputChange: (value: string) => void;
@@ -27,6 +29,8 @@ const defaultContextValue: TypingContextType = {
   targetText: "Hola mundo",
   userInputText: "",
   isFinalWord: false,
+  wpm: 0,
+  accuracy: 0,
   score: 0,
   getScores: [],
   handleRestartGame: () => {},
@@ -40,7 +44,7 @@ const TypingContext = createContext<TypingContextType>(defaultContextValue);
 
 const TypingProvider = ({ children }: TypingProviderProps) => {
 
-  const [targetText] = useState("This is a typing test. Try to type this text as fast as you can.");
+  const [targetText] = useState("This is a typing test. Try to type as fast as you can");
   const [userInputText, setUserInputText] = useState("");
   const [counterDeletedChars, setCounterDeletedChars] = useState(0);
   const [startTime, setStartTimer] = useState(0);
@@ -116,6 +120,8 @@ const TypingProvider = ({ children }: TypingProviderProps) => {
     <TypingContext.Provider
       value={{
         targetText,
+        accuracy,
+        wpm,
         getScores,
         score,
         isFinalWord,

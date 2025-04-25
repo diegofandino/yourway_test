@@ -15,6 +15,11 @@
   align-items: center;
 }
 
+.final__data p:not(:last-child){
+  border-right: 1px solid;
+  padding-right: 20px;
+}
+
 @layer components {
   .btn-primary {
     @apply px-4 py-2 cursor-pointer border border-transparent text-sm min-w-50 font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;

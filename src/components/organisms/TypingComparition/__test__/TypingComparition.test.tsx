@@ -17,6 +17,8 @@ type TypingContextType = {
   targetText: string;
   userInputText: string;
   isFinalWord: boolean;
+  wpm: number;
+  accuracy: number;
   score: number;
   getScores: ScoresGet[];
   handleUserInputChange: (value: string) => void;
@@ -30,6 +32,8 @@ const defaultContextValue: TypingContextType = {
   targetText: "Hola mundo",
   userInputText: "",
   isFinalWord: false,
+  wpm: 0,
+  accuracy: 0,
   score: 0,
   getScores: [],
   handleRestartGame: () => {},

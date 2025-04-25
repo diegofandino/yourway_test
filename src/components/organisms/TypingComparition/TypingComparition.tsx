@@ -12,13 +12,15 @@ const {
 	RESTART_TEXT,
 	RESULT_SCORE,
 	RESULT_SCORE_TABLE,
+	ACCURACY_TEXT,
+	WPM_TEXT,
 } = StringProjects;
 
 const TypingComparition = () => {
 
 	const context = useContext(TypingContext);
 	
-	const { targetText, userInputText, score, isFinalWord, getScores, handleUserInputChange, handleRestartGame, handleKeyDown, handleKeyUp, setCorrectWordsNumber} = context;
+	const { targetText, userInputText, score, isFinalWord, getScores, accuracy, wpm, handleUserInputChange, handleRestartGame, handleKeyDown, handleKeyUp, setCorrectWordsNumber} = context;
 
   return (
 	
@@ -28,13 +30,30 @@ const TypingComparition = () => {
 		<div className='flex justify-center gap-2'>
 			<Button className='btn-primary' label={isFinalWord ? RESTART_TEXT : STOP_TEXT} type='button' onClickEvent={handleRestartGame} />
 		</div>
-		{
-			score !== 0 && (
-				<Description className='text-2xl'>
-					{`${RESULT_SCORE} ${score}`}
-				</Description>
-			)
-		}
+		<div className='final__data flex gap-3'>
+			{
+				accuracy !== 0 && (
+					<Description className='text-2xl'>
+						{`${ACCURACY_TEXT} ${accuracy}%`}
+					</Description>
+				)
+			}
+			{
+				wpm !== 0 && (
+					<Description className='text-2xl'>
+						{`${WPM_TEXT} ${wpm}`}
+					</Description>
+				)
+			}
+			{
+				score !== 0 && (
+					<Description className='text-2xl'>
+						{`${RESULT_SCORE} ${score}`}
+					</Description>
+				)
+			}
+		</div>
+	
 		{
 			getScores && getScores.length > 0 && (
 				<div className='flex flex-col gap-8'>
